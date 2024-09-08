@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"] // Required to run inside dev container
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String @id @default(uuid())
+  name        String
+  email       String @unique()
+  phoneNumber String
+  password    String
+}
+
+model Objects {
+  id           String      @id @default(uuid())
+  name         String
+  color        String
+  value        String
+  brand        String
+  date         DateTime    @default(now())
+  local        String
+  category     Category
+  imageKey     String?
+  devolution   Devolution?
+  devolutionId String?
+}
+
+model Devolution {
+  id       String   @id @default(uuid())
+  name     String
+  rg       String
+  cpf      String
+  date     DateTime @default(now())
+  object   Objects  @relation(fields: [objectId], references: [id])
+  objectId String   @unique
+}
+
+enum Category {
+  ELETRONIC
+  CUPS_AND_BOTTLES
+  MATERIALS_AND_BAGS
+  ACCESSORIES
+  CLOTHES
+  CHARGERS_AND_CABLES
+  DOCUMENTS
+  OTHERS
+}

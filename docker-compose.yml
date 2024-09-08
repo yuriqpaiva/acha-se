@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev  # Assuming you have a Dockerfile.dev for development
+    volumes:
+      - ./frontend:/app  # Mounts the local frontend directory to /app in the container
+      - /app/node_modules  # Prevents overwriting node_modules inside the container
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Optional: Helps with file change detection on some systems
+      - REACT_APP_API_URL=http://localhost:4000
+
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev  # Assuming you have a Dockerfile.dev for development
+    volumes:
+      - ./backend:/app  # Mounts the local backend directory to /app in the container
+      - /app/node_modules  # Prevents overwriting node_modules inside the container
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://docker:docker@db:5432/achase
+      - PORT=4000
+      - JWT_PASS=3879335a33272a3b5dfd0daedcd8154e41399dff0f7157ba7f36061e283d4eda
+      - R2_BUCKET=ache-se
+      - CLOUDFLARE_ACCESS_KEY_ID=7236073b8b8a95072fc23eea89545c15
+      - CLOUDFLARE_ENDPOINT=https://dfc8a79c3bb1ff6e8eca4c5613d6af32.r2.cloudflarestorage.com/
+      - CLOUDFLARE_SECRET_ACCESS_KEY=ab10a3f7efb2de770b212b0536063c867cc1115bfbd41d38cbc7d23f2b93dba7
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: achase
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data  # Persist data even if the container is restarted
+
+volumes:
+  postgres-data:
