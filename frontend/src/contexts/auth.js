@@ -4,7 +4,8 @@ import { http } from '../api/server';
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
+  const [signed, setSigned] = useState('unset');
 
   useEffect(() => {
     const userToken = localStorage.getItem('token');
@@ -12,7 +13,11 @@ export const AuthProvider = ({ children }) => {
 
     if (userToken && usersStorage) {
       setUser(JSON.parse(usersStorage));
+      setSigned('valid');
+      return;
     }
+
+    setSigned('invalid');
   }, []);
 
   const signin = async (email, password) => {
@@ -36,6 +41,7 @@ export const AuthProvider = ({ children }) => {
         name: data.name,
       }),
     );
+    setSigned('valid');
   };
 
   const signup = async (name, phoneNumber, email, password) => {
@@ -45,7 +51,6 @@ export const AuthProvider = ({ children }) => {
       email,
       password,
     });
-    console.log(data);
 
     if (!data) {
       throw new Error('Erro ao cadastrar');
@@ -66,18 +71,18 @@ export const AuthProvider = ({ children }) => {
         name: data.name,
       }),
     );
+    setSigned('valid');
   };
 
   const signout = () => {
     setUser(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    setSigned('invalid');
   };
 
   return (
-    <AuthContext.Provider
-      value={{ user, signed: !!user, signin, signup, signout }}
-    >
+    <AuthContext.Provider value={{ user, signed, signin, signup, signout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: rgba(243, 244, 249, 1);
-  height: 1000px;
-  overflow-x: hidden;
-  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 `;
 
 export const Retangulo1 = styled.div`
@@ -55,7 +54,6 @@ export const BotObjetos = styled.button`
 export const TextoPag = styled.div`
   top: 40px;
   left: 430px;
-  position: absolute;
 `;
 
 export const TextoObjetos = styled.p`
@@ -78,10 +76,9 @@ export const BotaoInvisivel = styled.button`
 export const NovoItem = styled.a`
   right: 250px;
   height: 40px;
-  position: absolute;
   top: 170px;
   background-color: rgb(16, 74, 139);
-  width: 302px;
+  max-width: 302px;
   color: white;
   display: flex;
   align-items: center;
@@ -101,16 +98,24 @@ export const NovoItem = styled.a`
 `;
 
 export const Galeria = styled.div`
-  position: absolute;
   background-color: white;
-  right: 250px;
-  width: 800px;
-  height: 650px;
-  top: 250px;
-  column-count: 3;
+  max-width: 800px;
+  padding: 24px;
   text-align: center;
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media (max-width: 920px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 620px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const Itens = styled.img`

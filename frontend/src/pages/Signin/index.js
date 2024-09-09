@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import * as C from './styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import Logo from '../../images/image.png';
 
 const Signin = () => {
   const { signin } = useAuth();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -21,6 +22,7 @@ const Signin = () => {
 
     try {
       await signin(email, senha);
+      navigate('/');
     } catch (error) {
       if (error.response.status === 400) {
         setError('E-mail ou senha invalidos');
