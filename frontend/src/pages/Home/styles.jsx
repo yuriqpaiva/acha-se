@@ -190,16 +190,6 @@ export const Icone3 = styled.img`
   vertical-align: middle;
 `;
 
-export const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary};
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
 export const AddItemButtonWrapper = styled.div`
   max-width: 300px;
 

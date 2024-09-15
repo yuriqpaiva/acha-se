@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #f0f2f5;
     font-family: "Nunito", sans-serif !important;
     color: ${({ theme }) => theme.colors.text};
+    font-size: 1rem;
   }
 
   a {
@@ -21,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button {
+    font-size: 1rem;
     font-family: "Nunito", sans-serif !important;
   }
 
@@ -32,6 +34,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   input {
+    font-family: "Nunito", sans-serif !important;
+  }
+
+  select {
     font-family: "Nunito", sans-serif !important;
   }
 

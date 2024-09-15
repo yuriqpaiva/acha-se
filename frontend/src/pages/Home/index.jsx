@@ -15,6 +15,7 @@ import {
   PlusCircle,
 } from '@phosphor-icons/react';
 import Button from '../../components/Button';
+import { Title } from '../../styles/base-styles';
 
 const items = [
   {
@@ -70,10 +71,10 @@ const items = [
 const Home = () => {
   return (
     <C.Container>
-      <C.Title>
+      <Title>
         <MagnifyingGlass size={32} weight="bold" />
         Itens encontrados
-      </C.Title>
+      </Title>
       <C.AddItemButtonWrapper>
         <Button as={Link} to="cadastro-item">
           <PlusCircle size={24} weight="bold" />

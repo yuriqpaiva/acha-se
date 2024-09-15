@@ -311,6 +311,7 @@ export const Content = styled.div`
   justify-content: center;
   width: 100%;
   padding-left: 64px;
+  padding-right: 64px;
   margin: 0 auto;
   max-width: 1200px;
 
@@ -330,6 +331,7 @@ export const Content = styled.div`
   @media (max-width: 920px) {
     flex-direction: column;
     padding-left: 20px;
+    padding-right: 20px;
   }
 `;
 
@@ -339,6 +341,7 @@ export const Header = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 64px;
+  margin-bottom: auto;
 
   @media (max-width: 920px) {
     display: flex;
