@@ -13,21 +13,20 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 10px;
   height: 100vh;
-  background-color: #f3f4f9;
 `;
 
-export const Content = styled.div`
+export const Content = styled.form`
   gap: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  box-shadow: 0 1px 2px #0003;
   background-color: white;
   max-width: 350px;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 6px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 export const Label = styled.label`
@@ -36,7 +35,7 @@ export const Label = styled.label`
   color: #104a8b;
 `;
 
-export const LabelSignup = styled.label`
+export const LabelSignin = styled.label`
   font-size: 16px;
   color: #104a8b;
 `;

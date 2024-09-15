@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Button = styled.button`
   padding: 8px 24px;
@@ -15,6 +15,30 @@ export const Button = styled.button`
   gap: 8px;
 
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+
+  ${({ loading }) =>
+    loading &&
+    css`
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      svg {
+        color: white;
+        animation: spin 1s linear infinite;
+      }
+
+      cursor: not-allowed;
+      background-color: gray;
+
+      &:hover {
+        box-shadow: none !important;
+        color: white !important;
+        background-color: gray !important;
+      }
+    `}
 
   &:hover {
     transition: all 0.2s ease;

@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-
   * {
     margin: 0;
     padding: 0;
@@ -30,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
     background-color: transparent;
+  }
+
+  input {
+    font-family: "Nunito", sans-serif !important;
   }
 
   @media (max-width: 1080px) {

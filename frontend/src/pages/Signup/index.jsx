@@ -15,9 +15,13 @@ const Signup = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const { signup } = useAuth();
 
-  const handleSignup = async () => {
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
     if (!email || !emailConf || !name || !phoneNumber || !senha) {
       setError('Preencha todos os campos');
       return;
@@ -26,8 +30,10 @@ const Signup = () => {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       await signup(name, phoneNumber, email, senha);
+      setIsSubmitting(false);
       alert('Usuário cadatrado com sucesso!');
       navigate('/');
     } catch (error) {
@@ -36,6 +42,8 @@ const Signup = () => {
         return;
       }
       setError('Ocorreu um erro inesperado');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -44,7 +52,7 @@ const Signup = () => {
       <C.ImageContainer>
         <img src={Logo} alt="logo" />
       </C.ImageContainer>
-      <C.Content>
+      <C.Content onSubmit={handleSignup}>
         <Input
           type="name"
           placeholder="Digite seu nome"
@@ -76,7 +84,7 @@ const Signup = () => {
           onChange={(e) => [setSenha(e.target.value), setError('')]}
         />
         <C.labelError>{error}</C.labelError>
-        <Button onClick={handleSignup} fullWidth>
+        <Button type="submit" fullWidth loading={isSubmitting}>
           Inscrever-se
         </Button>
         <C.LabelSignin>

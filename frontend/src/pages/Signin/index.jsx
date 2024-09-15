@@ -14,12 +14,15 @@ const Signin = () => {
   const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = async () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
     if (!email | !senha) {
       setError('Preencha todos os campos');
       return;
     }
-
+    setIsSubmitting(true);
     try {
       await signin(email, senha);
       navigate('/');
@@ -29,6 +32,8 @@ const Signin = () => {
         return;
       }
       setError('Ocorreu um erro inesperado');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -37,7 +42,7 @@ const Signin = () => {
       <C.ImageContainer>
         <img src={Logo} alt="logo" />
       </C.ImageContainer>
-      <C.Content>
+      <C.Content onSubmit={handleLogin}>
         <Input
           type="email"
           placeholder="Digite seu E-mail"
@@ -51,7 +56,7 @@ const Signin = () => {
           onChange={(e) => [setSenha(e.target.value), setError('')]}
         />
         <C.labelError>{error}</C.labelError>
-        <Button onClick={handleLogin} fullWidth>
+        <Button type="submit" fullWidth loading={isSubmitting}>
           Entrar
         </Button>
         <C.LabelSignup>
