@@ -41,7 +41,7 @@ export const Retangulo2 = styled.div`
 
 export const Nav = styled.div`
   z-index: 999999;
-  height: 100vh;
+  height: 100dvh;
   width: 250px;
   background-color: white;
   text-align: center;
