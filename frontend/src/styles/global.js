@@ -12,13 +12,36 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
     background-color: #f0f2f5;
-    font-family: Arial, Helvetica, sans-serif
+    font-family: "Nunito", sans-serif !important;
+    color: ${({ theme }) => theme.colors.text};
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  button {
+    font-family: "Nunito", sans-serif !important;
   }
 
   button {
     cursor: pointer;
     border: none;
     outline: none;
+    background-color: transparent;
+  }
+
+  @media (max-width: 1080px) {
+    html {
+      font-size: 93.75%;
+    }
+  }
+
+  @media (max-width: 720px) {
+    html {
+      font-size: 87.5%;
+    }
   }
 `;
 

@@ -1,31 +1,11 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-`;
-
-export const Retangulo1 = styled.div`
-  width: 70px;
-  height: 500px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: -150px;
-  left: 250px;
-`;
-
-export const Retangulo2 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: 65px;
-  left: 250px;
+  width: 100%;
 `;
 
 export const Nav = styled.div`
@@ -98,16 +78,15 @@ export const NovoItem = styled.a`
 `;
 
 export const Galeria = styled.div`
-  background-color: white;
-  max-width: 800px;
-  padding: 24px;
-  text-align: center;
   border-radius: 10px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   @media (max-width: 920px) {
     grid-template-columns: repeat(2, 1fr);
@@ -118,16 +97,51 @@ export const Galeria = styled.div`
   }
 `;
 
+export const ItemGaleria = styled(Link)`
+  text-decoration: none;
+  height: 220px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: white;
+  border-radius: 6px;
+
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.border};
+
+  font-size: 1.125rem;
+  text-align: center;
+  font-weight: 500;
+
+  svg {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  &:hover {
+    transition: all 0.2s ease;
+    color: ${({ theme }) => theme.colors.primary};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
+  }
+
+  @media (max-width: 620px) {
+    height: 160px;
+  }
+`;
+
 export const Itens = styled.img`
   width: 190px;
   height: 190px;
   border-radius: 10px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   padding-top: 6px;
   cursor: pointer;
   margin-top: 10px;
+  box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.border};
+
   &:hover {
-    transform: scale(1.1);
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -155,38 +169,6 @@ export const Administrador = styled.p`
   color: rgb(20, 83, 137);
 `;
 
-export const Retangulo5 = styled.div`
-  height: 2px;
-  background-color: rgb(20, 83, 137);
-  width: 170px;
-  left: 39px;
-  position: fixed;
-`;
-export const Retangulo3 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px;
-  border-style: solid;
-  border-color: rgb(16, 74, 139);
-  top: 355px;
-  right: 0;
-`;
-
-export const Retangulo4 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px;
-  border-style: solid;
-  border-color: rgb(16, 74, 139);
-  top: 520px;
-  right: 65px;
-`;
 export const DivImagemLogo = styled.img`
   height: 150px;
   width: 250px;
@@ -206,4 +188,22 @@ export const Icone2 = styled.img`
 export const Icone3 = styled.img`
   height: 30px;
   vertical-align: middle;
+`;
+
+export const Title = styled.h1`
+  font-size: 2rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.primary};
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const AddItemButtonWrapper = styled.div`
+  max-width: 300px;
+
+  @media (max-width: 920px) {
+    max-width: 100%;
+  }
 `;

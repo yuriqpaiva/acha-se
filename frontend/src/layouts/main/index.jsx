@@ -1,61 +1,77 @@
-import React from 'react';
-import * as C from './styles';
+import React, { useState } from 'react';
+import * as Styled from './styles';
 import logo from '../../images/Achese3.png';
-import icone from '../../images/icone.png';
-import fotoadmin from '../../images/fotoadmin.PNG';
-import iconsair from '../../images/iconsair.png';
 import { Outlet, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import { House, List, SignOut, User, XCircle } from '@phosphor-icons/react';
+
+const navItems = [
+  {
+    label: 'Início',
+    icon: House,
+    to: '/',
+  },
+  {
+    label: 'Perfil',
+    icon: User,
+    to: '/objetos',
+  },
+];
 
 export function MainLayout() {
   const { signout } = useAuth();
   const navigate = useNavigate();
 
-  return (
-    <C.Container>
-      <C.Retangulo1 />
-      <C.Retangulo2 />
-      <div>
-        <C.Retangulo3 />
-        <C.Retangulo4 />
-      </div>
-      <C.Nav>
-        <C.BotObjetos>
-          <C.DivImagemLogo src={logo} alt="Logo" />
-          <C.Icone src={icone} alt="Ícone" /> Objetos
-        </C.BotObjetos>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div className="retangulo5"></div>
-        <br />
-        <C.Fotoadmin src={fotoadmin} alt="Admin" />
-        <C.Iconsair
-          src={iconsair}
-          alt="Sair"
-          onClick={() => [signout(), navigate('/login')]}
-        />
-        <br />
-        <br />
-        <C.Administrador>Administrador</C.Administrador>
-      </C.Nav>
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
-      <C.Content>
-        <C.Header>
-          <C.DivImagemLogo src={logo} alt="Logo" />
-          <C.Iconsair
-            src={iconsair}
-            alt="Sair"
-            onClick={() => [signout(), navigate('/login')]}
-          />
-        </C.Header>
+  function handleToggleNavbar() {
+    setIsNavbarOpen(!isNavbarOpen);
+  }
+
+  return (
+    <Styled.Container>
+      <Styled.Nav open={isNavbarOpen}>
+        <Styled.ToggleNavWrapper>
+          <button onClick={handleToggleNavbar}>
+            <XCircle size={24} weight="bold" />
+          </button>
+        </Styled.ToggleNavWrapper>
+        <Styled.TopNavContent>
+          <Styled.DivImagemLogo src={logo} alt="Logo" />
+          <ul className="items">
+            {navItems.map((item) => (
+              <li key={item.label}>
+                <Styled.ItemLink to={item.to} activeClassName="active">
+                  <item.icon size={24} weight="bold" />
+                  {item.label}
+                </Styled.ItemLink>
+              </li>
+            ))}
+          </ul>
+        </Styled.TopNavContent>
+        <Styled.BottomNavContent>
+          <Styled.AdminNavWrapper>
+            <div className="picture-wrapper">
+              <User size={24} weight="bold" />
+            </div>
+            Admin
+          </Styled.AdminNavWrapper>
+          <Styled.LogoutButton onClick={() => [signout(), navigate('/login')]}>
+            <SignOut size={24} weight="bold" />
+            Sair
+          </Styled.LogoutButton>
+        </Styled.BottomNavContent>
+      </Styled.Nav>
+
+      <Styled.Content isNavbarOpen={isNavbarOpen}>
+        <Styled.Header>
+          <Styled.OpenNavButton onClick={handleToggleNavbar}>
+            <List size={28} weight="bold" />
+          </Styled.OpenNavButton>
+          <Styled.DivImagemLogo src={logo} alt="Logo" />
+        </Styled.Header>
         <Outlet />
-      </C.Content>
-    </C.Container>
+      </Styled.Content>
+    </Styled.Container>
   );
 }
