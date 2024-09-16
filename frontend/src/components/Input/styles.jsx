@@ -15,4 +15,24 @@ export const Input = styled.input`
     color: ${({ theme }) => theme.colors.zinc[500]};
   }
   border: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  &[type='datetime-local'] {
+    &::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+    }
+  }
+
+  &:before {
+    color: ${({ theme }) => theme.colors.zinc[500]};
+    content: attr(placeholder) !important;
+    font-size: 14px;
+  }
+
+  &[value]:not([value='']) + &:before {
+    content: '' !important;
+  }
 `;

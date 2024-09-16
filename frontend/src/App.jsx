@@ -4,11 +4,14 @@ import { AuthProvider } from './contexts/auth';
 import GlobalStyle from './styles/global';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
+import { WindowProvider } from './contexts/window';
 
 const App = () => (
   <ThemeProvider theme={theme}>
     <AuthProvider>
-      <RoutesApp />
+      <WindowProvider>
+        <RoutesApp />
+      </WindowProvider>
       <GlobalStyle />
     </AuthProvider>
   </ThemeProvider>

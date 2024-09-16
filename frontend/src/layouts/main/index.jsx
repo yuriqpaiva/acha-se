@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as Styled from './styles';
 import logo from '../../images/Achese3.png';
 import { Outlet, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { House, List, SignOut, User, XCircle } from '@phosphor-icons/react';
+import { useWindowDimensions } from '../../contexts/window';
 
 const navItems = [
   {
@@ -21,6 +22,7 @@ const navItems = [
 export function MainLayout() {
   const { signout } = useAuth();
   const navigate = useNavigate();
+  const { width } = useWindowDimensions();
 
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
@@ -28,9 +30,29 @@ export function MainLayout() {
     setIsNavbarOpen(!isNavbarOpen);
   }
 
+  const navbarRef = useRef(null);
+
+  function handleClickOutside(event) {
+    if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+      setIsNavbarOpen(false);
+    }
+  }
+
+  useEffect(() => {
+    if (width <= 920) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [width]);
+
   return (
     <Styled.Container>
-      <Styled.Nav open={isNavbarOpen}>
+      <Styled.Nav open={isNavbarOpen} ref={navbarRef}>
         <Styled.ToggleNavWrapper>
           <button onClick={handleToggleNavbar}>
             <XCircle size={24} weight="bold" />
