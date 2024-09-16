@@ -332,6 +332,8 @@ export const Content = styled.div`
     flex-direction: column;
     padding-left: 20px;
     padding-right: 20px;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 `;
 
@@ -341,7 +343,6 @@ export const Header = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 64px;
-  margin-bottom: auto;
 
   @media (max-width: 920px) {
     display: flex;

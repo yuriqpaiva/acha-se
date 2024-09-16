@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 
-export const Retangulo1 = styled.div`
-  width: 70px;
-  height: 500px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: -150px;
-  left: 250px;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
+
 export const Itens = styled.img`
   width: 190px;
   height: 190px;
@@ -21,39 +17,6 @@ export const Itens = styled.img`
   &:hover {
     transform: scale(1.1);
   }
-`;
-
-export const Retangulo2 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: 65px;
-  left: 250px;
-`;
-
-export const Retangulo3 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: 355px;
-  right: 0;
-`;
-
-export const Retangulo4 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: 520px;
-  right: 65px;
 `;
 
 export const Nav = styled.div`
@@ -111,7 +74,6 @@ export const Fotoadmin = styled.img`
 export const TextoPag = styled.div`
   top: 40px;
   left: 430px;
-  position: absolute;
 `;
 
 export const BotaoInvisivel = styled.button`
@@ -126,16 +88,16 @@ export const BotaoInvisivel = styled.button`
 `;
 
 export const Galeria = styled.div`
-  position: absolute;
   background-color: white;
-  right: 250px;
-  width: 800px;
-  height: 650px;
-  top: 250px;
-  column-count: 3;
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  min-height: 800px;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: 32px;
+  border-radius: 6px;
+
+  @media (max-width: 920px) {
+    min-height: 100%;
+  }
 `;
 
 export const Form = styled.div`
@@ -162,7 +124,6 @@ export const FormDropDawn = styled.select`
 export const BotaoImagem = styled.a`
   right: 250px;
   height: 35px;
-  position: absolute;
   top: 380px;
   background-color: rgb(16, 74, 139);
   width: 302px;
@@ -182,7 +143,6 @@ export const BotaoImagem = styled.a`
 export const BotaoItem = styled.a`
   right: 700px;
   height: 35px;
-  position: absolute;
   top: 380px;
   background-color: rgb(16, 74, 139);
   width: 302px;

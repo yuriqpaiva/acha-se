@@ -1,18 +1,16 @@
 // CadastroItem/index.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Icone2, // Importe Iconsair do styles.js
-  TextoPag,
-  BotaoInvisivel,
-  Galeria,
-  Itens,
-} from './styles';
-import icone2 from '../../images/icone2.png';
+import { Container, Galeria } from './styles';
 import { http } from '../../api/server';
+import Table from '../../components/Table';
+import { BackButton } from '../../components/BackButton';
+import { Title } from '../../styles/base-styles';
+import { ItemActionBar } from '../../components/ItemActionBar';
+import { DeviceMobile } from '@phosphor-icons/react';
 
 const CadastroItem = () => {
-  const navigate = useNavigate(); // Utilize useNavigate se estiver usando React Router\
+  const navigate = useNavigate();
 
   const [items, setItems] = useState([]);
 
@@ -31,24 +29,28 @@ const CadastroItem = () => {
     fetchItems();
   }, []);
 
-  return (
-    <>
-      <TextoPag>
-        <BotaoInvisivel>
-          <Icone2 src={icone2} alt="Ícone" /> Itens encontrados
-        </BotaoInvisivel>
-      </TextoPag>
+  const columns = [
+    { label: 'Foto', value: 'imageUrl' },
+    { label: 'Nome', value: 'name' },
+    { label: 'Marca', value: 'brand' },
+    { label: 'Categoria', value: 'category' },
+    { label: 'Cor', value: 'color' },
+    { label: 'Valor', value: 'value' },
+    { label: 'Data', value: 'date' },
+    { label: 'Local', value: 'local' },
+  ];
 
+  return (
+    <Container>
+      <BackButton marginBottom={32} />
+      <Title style={{ marginBottom: 16 }}>
+        <DeviceMobile size={32} weight="bold" />
+        Smartphones
+      </Title>
       <Galeria>
-        {items.map((item) => {
-          return (
-            <button onClick={() => navigate(`/item/${item.id}`)} key={item.id}>
-              <Itens src={item.imageUrl} alt="Item 1" />
-            </button>
-          );
-        })}
+        <Table columns={columns} rows={items} ActionBar={ItemActionBar} />
       </Galeria>
-    </>
+    </Container>
   );
 };
 

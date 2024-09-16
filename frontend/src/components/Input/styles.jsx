@@ -26,13 +26,15 @@ export const Input = styled.input`
     }
   }
 
-  &:before {
-    color: ${({ theme }) => theme.colors.zinc[500]};
-    content: attr(placeholder) !important;
-    font-size: 14px;
-  }
+  @supports (-webkit-touch-callout: none) {
+    &:before {
+      color: ${({ theme }) => theme.colors.zinc[500]};
+      content: attr(placeholder) !important;
+      font-size: 14px;
+    }
 
-  &[value]:not([value='']) + &:before {
-    content: '' !important;
+    &[value]:not([value='']) + &:before {
+      content: '' !important;
+    }
   }
 `;
