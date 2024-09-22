@@ -5,18 +5,12 @@ import Home from '../pages/Home';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import CadastroItem from '../pages/CadastroItem';
-import Smartphones from '../pages/Smartphones';
-import Outros from '../pages/Outros';
-import Copos from '../pages/Copos';
-import Carregadores from '../pages/Carregadores';
-import Roupas from '../pages/Roupas';
-import Materiais from '../pages/Materiais';
-import Documentos from '../pages/Documentos';
-import Acessorios from '../pages/Acessorios';
 import VizualizarItem from '../pages/VizualizarItem';
 import Devolution from '../pages/Devolution';
 import DetalhesItem from '../pages/DetalhesItem';
 import { MainLayout } from '../layouts/main';
+import ObjectCategoryView from '../components/ObjectCategoryView';
+import { objectCategories } from '../constants/objects-categories';
 
 const Private = ({ Item }) => {
   const { signed } = useAuth();
@@ -57,39 +51,21 @@ const RoutesApp = () => {
               path="/item/:objectId"
               element={<Private Item={DetalhesItem} />}
             />
-            <Route exact path="/Outros" element={<Private Item={Outros} />} />
-            <Route exact path="/Copos" element={<Private Item={Copos} />} />
-            <Route
-              exact
-              path="/Carregadores"
-              element={<Private Item={Carregadores} />}
-            />
-            <Route exact path="/Roupas" element={<Private Item={Roupas} />} />
-            <Route
-              exact
-              path="/Materiais"
-              element={<Private Item={Materiais} />}
-            />
-            <Route
-              exact
-              path="/Documentos"
-              element={<Private Item={Documentos} />}
-            />
-            <Route
-              exact
-              path="/smartphones"
-              element={<Private Item={Smartphones} />}
-            />
-            <Route
-              exact
-              path="/Acessorios"
-              element={<Private Item={Acessorios} />}
-            />
             <Route
               exact
               path="/VizualizarItem"
               element={<Private Item={VizualizarItem} />}
             />
+            {objectCategories.map((c) => (
+              <Route
+                exact
+                key={c.key}
+                path={c.route}
+                element={
+                  <Private Item={() => <ObjectCategoryView category={c} />} />
+                }
+              />
+            ))}
           </Route>
         </Routes>
       </Fragment>

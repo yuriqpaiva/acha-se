@@ -2,71 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as C from './styles';
 
-import {
-  Backpack,
-  DeviceMobile,
-  DotsThreeOutline,
-  File,
-  Headset,
-  Hoodie,
-  MagnifyingGlass,
-  PintGlass,
-  PlugCharging,
-  PlusCircle,
-} from '@phosphor-icons/react';
+import { MagnifyingGlass, PlusCircle } from '@phosphor-icons/react';
 import Button from '../../components/Button';
 import { Title } from '../../styles/base-styles';
-
-const items = [
-  {
-    id: 1,
-    name: 'Smartphones e eletrônicos',
-    icon: DeviceMobile,
-    to: '/Smartphones',
-  },
-  {
-    id: 2,
-    name: 'Materiais e mochilas',
-    icon: Backpack,
-    to: '/Materiais',
-  },
-  {
-    id: 3,
-    name: 'Copos e garrafas',
-    icon: PintGlass,
-    to: '/Copos',
-  },
-  {
-    id: 4,
-    name: 'Acessórios',
-    icon: Headset,
-    to: '/Acessorios',
-  },
-  {
-    id: 5,
-    name: 'Roupas',
-    icon: Hoodie,
-    to: '/Roupas',
-  },
-  {
-    id: 6,
-    name: 'Documentos',
-    icon: File,
-    to: '/Documentos',
-  },
-  {
-    id: 7,
-    name: 'Carregadores e cabos',
-    icon: PlugCharging,
-    to: '/Carregadores',
-  },
-  {
-    id: 8,
-    name: 'Outros',
-    icon: DotsThreeOutline,
-    to: '/Outros',
-  },
-];
+import { objectCategories } from '../../constants/objects-categories';
 
 const Home = () => {
   return (
@@ -82,8 +21,8 @@ const Home = () => {
         </Button>
       </C.AddItemButtonWrapper>
       <C.Galeria>
-        {items.map((item) => (
-          <C.ItemGaleria key={item.id} to={item.to}>
+        {objectCategories.map((item) => (
+          <C.ItemGaleria key={item.id} to={item.route}>
             <item.icon size={64} />
             {item.name}
           </C.ItemGaleria>
