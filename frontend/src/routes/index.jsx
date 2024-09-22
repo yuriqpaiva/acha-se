@@ -5,12 +5,12 @@ import Home from '../pages/Home';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import CadastroItem from '../pages/CadastroItem';
-import VizualizarItem from '../pages/VizualizarItem';
 import Devolution from '../pages/Devolution';
 import DetalhesItem from '../pages/DetalhesItem';
 import { MainLayout } from '../layouts/main';
 import ObjectCategoryView from '../components/ObjectCategoryView';
 import { objectCategories } from '../constants/objects-categories';
+import Devolvidos from '../pages/Devolvidos';
 
 const Private = ({ Item }) => {
   const { signed } = useAuth();
@@ -51,11 +51,6 @@ const RoutesApp = () => {
               path="/item/:objectId"
               element={<Private Item={DetalhesItem} />}
             />
-            <Route
-              exact
-              path="/VizualizarItem"
-              element={<Private Item={VizualizarItem} />}
-            />
             {objectCategories.map((c) => (
               <Route
                 exact
@@ -66,6 +61,7 @@ const RoutesApp = () => {
                 }
               />
             ))}
+            <Route path="/devolvidos" element={<Private Item={Devolvidos} />} />
           </Route>
         </Routes>
       </Fragment>

@@ -3,7 +3,14 @@ import * as Styled from './styles';
 import logo from '../../images/Achese3.png';
 import { Outlet, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import { House, List, SignOut, User, XCircle } from '@phosphor-icons/react';
+import {
+  HandDeposit,
+  House,
+  List,
+  SignOut,
+  User,
+  XCircle,
+} from '@phosphor-icons/react';
 import { useWindowDimensions } from '../../contexts/window';
 
 const navItems = [
@@ -11,6 +18,11 @@ const navItems = [
     label: 'Início',
     icon: House,
     to: '/',
+  },
+  {
+    label: 'Devolvidos',
+    icon: HandDeposit,
+    to: '/devolvidos',
   },
   {
     label: 'Perfil',
