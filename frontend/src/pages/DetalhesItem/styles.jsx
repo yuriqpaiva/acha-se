@@ -1,59 +1,9 @@
 import styled from 'styled-components';
 
-export const Retangulo1 = styled.div`
-  width: 70px;
-  height: 500px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: -150px;
-  left: 250px;
-`;
-
-export const Retangulo2 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: 65px;
-  left: 250px;
-`;
-
-export const Retangulo3 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: 355px;
-  right: 0;
-`;
-
-export const Retangulo4 = styled.div`
-  width: 70px;
-  height: 300px;
-  background-color: white;
-  transform: rotate(235deg);
-  position: absolute;
-  border: 1px solid rgb(16, 74, 139);
-  top: 520px;
-  right: 65px;
-`;
-
-export const Nav = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 250px;
-  background-color: white;
-  text-align: center;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-  align-items: center;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
 
 export const BotObjetos = styled.button`

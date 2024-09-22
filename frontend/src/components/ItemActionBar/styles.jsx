@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  gap: 16px;
 
   a {
     background-color: ${({ theme }) => theme.colors.primaryLight};
