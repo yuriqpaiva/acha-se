@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+export const Container = styled.div``;
+
 export const Input = styled.input`
   outline: none;
   padding: 12px 20px;
@@ -37,4 +39,11 @@ export const Input = styled.input`
       content: '' !important;
     }
   }
+`;
+
+export const ErrorMsg = styled.span`
+  display: block;
+  font-size: 14px;
+  padding-top: 6px;
+  color: ${({ theme }) => theme.colors.danger};
 `;

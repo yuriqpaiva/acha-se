@@ -14,4 +14,9 @@ export const Subtitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.primary};
+
+  svg {
+    vertical-align: middle;
+    margin-right: 6px;
+  }
 `;
