@@ -4,6 +4,7 @@ import cors from '@fastify/cors';
 import { objectsHandler } from './routes/objects';
 import { authHandler } from './routes/auth';
 import { devolutionHandler } from './routes/devolution';
+import { userHandler } from './routes/user';
 
 const server = fastify();
 
@@ -24,6 +25,7 @@ server.register(multipart, {
 server.register(objectsHandler, { prefix: '/objects' });
 server.register(devolutionHandler, { prefix: '/devolutions' });
 server.register(authHandler, { prefix: '/auth' });
+server.register(userHandler, { prefix: '/user' });
 
 server
   .listen({ port, host })

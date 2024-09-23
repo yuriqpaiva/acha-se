@@ -27,7 +27,7 @@ const navItems = [
   {
     label: 'Perfil',
     icon: User,
-    to: '/objetos',
+    to: '/perfil',
   },
 ];
 

@@ -9,3 +9,9 @@ export const Title = styled.h1`
   align-items: center;
   gap: 8px;
 `;
+
+export const Subtitle = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.primary};
+`;

@@ -11,6 +11,7 @@ import { MainLayout } from '../layouts/main';
 import ObjectCategoryView from '../components/ObjectCategoryView';
 import { objectCategories } from '../constants/objects-categories';
 import Devolvidos from '../pages/Devolvidos';
+import Profile from '../pages/Profile';
 
 const Private = ({ Item }) => {
   const { signed } = useAuth();
@@ -62,6 +63,7 @@ const RoutesApp = () => {
               />
             ))}
             <Route path="/devolvidos" element={<Private Item={Devolvidos} />} />
+            <Route path="/perfil" element={<Private Item={Profile} />} />
           </Route>
         </Routes>
       </Fragment>
