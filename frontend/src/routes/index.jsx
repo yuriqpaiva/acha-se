@@ -12,6 +12,7 @@ import ObjectCategoryView from '../components/ObjectCategoryView';
 import { objectCategories } from '../constants/objects-categories';
 import Devolvidos from '../pages/Devolvidos';
 import Profile from '../pages/Profile';
+import ReportLostItem from '../pages/ReportLostItem';
 
 const Private = ({ Item }) => {
   const { signed } = useAuth();
@@ -33,6 +34,7 @@ const RoutesApp = () => {
       <Fragment>
         <Routes>
           <Route path="/login" element={<Signin />} />
+          <Route path="/reportar-item-perdido" element={<ReportLostItem />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route path="*" element={<Signin />} />
           <Route exact path="/" element={<MainLayout />}>

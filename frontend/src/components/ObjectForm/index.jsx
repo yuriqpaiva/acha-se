@@ -1,10 +1,11 @@
 import { Title } from '../../styles/base-styles';
-import { Pencil, PlusCircle, Trash } from '@phosphor-icons/react';
+import { Pencil, PlusCircle } from '@phosphor-icons/react';
 import * as Styled from './styles';
 import { useEffect, useRef, useState } from 'react';
 import Input from '../Input';
 import Select from '../Select';
 import Button from '../Button';
+import ImageInput from '../ImageInput';
 
 const ObjectForm = ({
   defaultValues,
@@ -38,10 +39,6 @@ const ObjectForm = ({
     }
   }, [defaultValues]);
 
-  function handleChange(e) {
-    setFile(e.target.files[0]);
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit(formData, file);
@@ -59,39 +56,7 @@ const ObjectForm = ({
       </Title>
 
       <Styled.Galeria>
-        <Styled.ButtonImageWrapper>
-          {file ? (
-            <div className="image-wrapper">
-              <button
-                type="button"
-                onClick={() => fileInputRef.current.click()}
-              >
-                <img
-                  style={{ width: 200, height: 200 }}
-                  src={URL.createObjectURL(file)}
-                  alt=""
-                />
-              </button>
-              <button
-                className="remove-image"
-                type="button"
-                onClick={() => {
-                  setFile(null);
-                }}
-              >
-                <Trash size={16} weight="bold" />
-                Remover imagem
-              </button>
-            </div>
-          ) : (
-            <Styled.BotaoImagem
-              type="button"
-              onClick={() => fileInputRef.current.click()}
-            >
-              Anexar imagem do item
-            </Styled.BotaoImagem>
-          )}
-        </Styled.ButtonImageWrapper>
+        <ImageInput file={file} fileInputRef={fileInputRef} setFile={setFile} />
         <Input
           placeholder="Nome do item"
           required
@@ -180,14 +145,6 @@ const ObjectForm = ({
           </Button>
         </Styled.SubmitButtonWrapper>
       </Styled.Galeria>
-      <div style={{ display: 'flex', marginTop: '20px' }}>
-        <input
-          onChange={handleChange}
-          ref={fileInputRef}
-          type="file"
-          style={{ display: 'none' }}
-        />
-      </div>
     </form>
   );
 };

@@ -1,26 +1,17 @@
 import styled from 'styled-components';
 
-export const SelectWrapper = styled.div`
-  position: relative;
-  display: inline-block;
+export const Container = styled.div`
   width: 100%;
-
-  svg {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-  }
 `;
 
-export const Input = styled.select`
+export const Textarea = styled.textarea`
   outline: none;
   padding: 12px 20px;
   width: 100%;
   border-radius: 5px;
   font-size: 16px;
-  appearance: none;
+  resize: vertical;
+  min-height: 100px;
 
   background-color: ${({ theme }) => theme.colors.zinc[50]};
   box-shadow: 0 0 0 1px ${({ theme }) => theme.colors.zinc[200]};
@@ -29,7 +20,12 @@ export const Input = styled.select`
   &::placeholder {
     color: ${({ theme }) => theme.colors.zinc[500]};
   }
+
   border: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 `;
 
 export const ErrorMsg = styled.span`

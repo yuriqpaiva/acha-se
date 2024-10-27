@@ -37,6 +37,10 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Nunito", sans-serif !important;
   }
 
+  textarea {
+    font-family: "Nunito", sans-serif !important;
+  }
+
   select {
     font-family: "Nunito", sans-serif !important;
   }
