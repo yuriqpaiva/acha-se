@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import toast from 'react-hot-toast';
+import { http } from '../../api/server';
 
 /**
  * @typedef {Object} FormData
@@ -20,6 +21,8 @@ import toast from 'react-hot-toast';
  * @property {string} color - The color of the lost item
  * @property {string} details - Additional details about the lost item
  * @property {File} [image] - Optional image of the lost item
+ * @property {string} location - The location where the item was lost
+ * @property {Date} lostTime - The date and time when the item was lost
  */
 
 // Define validation schema
@@ -36,6 +39,11 @@ const schema = yup
       .string()
       .required('Forneça detalhes sobre o item')
       .min(10, 'Forneça pelo menos 10 caracteres de descrição'),
+    location: yup.string().required('Informe o local onde o item foi perdido'),
+    lostTime: yup
+      .date()
+      .required('Informe a data e hora aproximada da perda')
+      .typeError('Data inválida'),
     image: yup
       .mixed()
       .test('fileSize', 'O arquivo deve ter no máximo 5MB', (value) => {
@@ -62,6 +70,7 @@ const ReportLostItem = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
     setValue,
   } = useForm({
@@ -72,6 +81,8 @@ const ReportLostItem = () => {
       brand: '',
       color: '',
       details: '',
+      location: '',
+      lostTime: '',
     },
   });
 
@@ -81,26 +92,30 @@ const ReportLostItem = () => {
    */
   const onSubmit = async (data) => {
     try {
-      // Create FormData for file upload
       const formData = new FormData();
       formData.append('category', data.category);
       formData.append('email', data.email);
       formData.append('brand', data.brand);
       formData.append('color', data.color);
       formData.append('details', data.details);
+      formData.append('location', data.location);
+      formData.append('lostTime', data.lostTime);
       if (file) {
-        formData.append('image', file);
+        formData.append('file', file);
       }
 
-      // Send to API
+      await http.post('/report-lost-item', formData);
 
       toast(
         '✅ Formulário enviado. \n\n Entraremos em contato caso encontrarmos algo relacionado aos detalhes fornecidos.',
         { duration: 6000 },
       );
+      reset();
+      setFile(null);
     } catch (error) {
-      // Handle error (e.g., show error message)
-      console.error('Error submitting form:', error);
+      toast.error('Erro ao enviar formulário. Tente novamente mais tarde.', {
+        duration: 6000,
+      });
     }
   };
 
@@ -136,7 +151,7 @@ const ReportLostItem = () => {
           defaultValue=""
           placeholder="Tipo"
           options={objectCategories.map((category) => ({
-            value: category.name,
+            value: category.key,
             label: category.name,
           }))}
           {...register('category')}
@@ -155,6 +170,20 @@ const ReportLostItem = () => {
           type="text"
           {...register('color')}
           error={errors.color}
+        />
+
+        <Input
+          placeholder="Local onde foi perdido"
+          type="text"
+          {...register('location')}
+          error={errors.location}
+        />
+
+        <Input
+          placeholder="Data e hora aproximada"
+          type="datetime-local"
+          {...register('lostTime')}
+          error={errors.lostTime}
         />
 
         <Textarea

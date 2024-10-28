@@ -56,3 +56,16 @@ enum Category {
   DOCUMENTS
   OTHERS
 }
+
+model ReportLostItem {
+  id        String   @id @default(uuid())
+  category  Category
+  email     String
+  brand     String
+  color     String
+  details   String
+  location  String
+  lostTime  DateTime
+  imageKey  String?
+  createdAt DateTime @default(now())
+}

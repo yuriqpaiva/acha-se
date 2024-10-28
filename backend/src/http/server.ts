@@ -5,6 +5,7 @@ import { objectsHandler } from './routes/objects';
 import { authHandler } from './routes/auth';
 import { devolutionHandler } from './routes/devolution';
 import { userHandler } from './routes/user';
+import { reportLostItemHandler } from './routes/report-lost-item';
 
 const server = fastify();
 
@@ -26,6 +27,7 @@ server.register(objectsHandler, { prefix: '/objects' });
 server.register(devolutionHandler, { prefix: '/devolutions' });
 server.register(authHandler, { prefix: '/auth' });
 server.register(userHandler, { prefix: '/user' });
+server.register(reportLostItemHandler, { prefix: '/report-lost-item' });
 
 server
   .listen({ port, host })

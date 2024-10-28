@@ -57,8 +57,6 @@ export async function handleCreateObject(
   const { brand, category, color, date, local, name, value } =
     objectBody.parse(body);
 
-  // if (!userId) return
-
   const createdObject = await prisma.objects.create({
     data: {
       brand,
