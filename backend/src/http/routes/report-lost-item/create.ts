@@ -5,10 +5,12 @@ import { Upload } from '@aws-sdk/lib-storage';
 import { r2 } from '../../../lib/cloudflare';
 import { prisma } from '../../../lib/prisma';
 import { randomUUID } from 'crypto';
+import { SocketStream } from '@fastify/websocket';
 
 export async function handleCreateReportLostItem(
   req: FastifyRequest,
   res: FastifyReply,
+  connections: Set<SocketStream>,
 ) {
   const parts = req.parts();
   let imageKey = '';
@@ -68,6 +70,15 @@ export async function handleCreateReportLostItem(
       imageKey,
     },
   });
+
+  try {
+    const message = JSON.stringify(createdReportLostItem);
+    for (const connection of connections) {
+      connection.socket.send(message);
+    }
+  } catch (error) {
+    console.error('Error sending message to clients:', error);
+  }
 
   return res.status(201).send(createdReportLostItem);
 }

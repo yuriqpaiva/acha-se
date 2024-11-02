@@ -6,6 +6,7 @@ import { authHandler } from './routes/auth';
 import { devolutionHandler } from './routes/devolution';
 import { userHandler } from './routes/user';
 import { reportLostItemHandler } from './routes/report-lost-item';
+import websocket from '@fastify/websocket';
 
 const server = fastify();
 
@@ -23,6 +24,7 @@ server.register(multipart, {
   },
 });
 
+server.register(websocket);
 server.register(objectsHandler, { prefix: '/objects' });
 server.register(devolutionHandler, { prefix: '/devolutions' });
 server.register(authHandler, { prefix: '/auth' });
