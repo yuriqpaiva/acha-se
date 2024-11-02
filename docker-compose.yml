@@ -15,7 +15,7 @@ services:
       - backend
     environment:
       - CHOKIDAR_USEPOLLING=true  # Optional: Helps with file change detection on some systems
-      - REACT_APP_API_URL=http://localhost:4000
+      - VITE_APP_API_URL=http://localhost:4000
 
 
   backend:

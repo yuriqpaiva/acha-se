@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const http = axios.create({ baseURL: process.env.REACT_APP_API_URL });
+export const http = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL });
 
 http.interceptors.request.use(
   (config) => {

@@ -13,4 +13,4 @@ else
 fi
 
 # Start the services in detached mode
-docker compose up -d
+docker compose up
