@@ -9,7 +9,7 @@ import {
 import * as Styled from './styles';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { http } from '../../api/server';
+import { http, WSBaseUrl } from '../../api/server';
 import dayjs from 'dayjs';
 import { objectCategories } from '../../constants/objects-categories';
 import toast from 'react-hot-toast';
@@ -45,7 +45,7 @@ export function ReportBox({ suspended = false }) {
       }
 
       const ws = new WebSocket(
-        `ws://localhost:4000/report-lost-item/listen?token=${token}`,
+        `${WSBaseUrl}/report-lost-item/listen?token=${token}`,
       );
       wsRef.current = ws;
 
