@@ -5,6 +5,9 @@ export const Container = styled.div`
   background-color: rgba(243, 244, 249, 1);
   display: flex;
   background-color: ${(props) => props.theme.colors.background};
+
+  max-width: 100vw;
+  overflow-x: hidden;
 `;
 
 export const Retangulo1 = styled.div`

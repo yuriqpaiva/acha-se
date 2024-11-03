@@ -6,6 +6,8 @@ import { r2 } from '../../../lib/cloudflare';
 import { prisma } from '../../../lib/prisma';
 import { randomUUID } from 'crypto';
 import { SocketStream } from '@fastify/websocket';
+import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export async function handleCreateReportLostItem(
   req: FastifyRequest,
@@ -71,8 +73,20 @@ export async function handleCreateReportLostItem(
     },
   });
 
+  let url = null;
+  if (createdReportLostItem.imageKey) {
+    const command = new GetObjectCommand({
+      Bucket: process.env.R2_BUCKET,
+      Key: createdReportLostItem.imageKey,
+    });
+    url = await getSignedUrl(r2, command, { expiresIn: 15 * 60 });
+  }
+
   try {
-    const message = JSON.stringify(createdReportLostItem);
+    const message = JSON.stringify({
+      ...createdReportLostItem,
+      imageUrl: url,
+    });
     for (const connection of connections) {
       connection.socket.send(message);
     }

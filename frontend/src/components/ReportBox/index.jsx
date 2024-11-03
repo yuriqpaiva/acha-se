@@ -1,9 +1,13 @@
 import {
+  AddressBook,
+  Article,
   Binoculars,
   CalendarBlank,
   DotsThree,
   EnvelopeSimple,
   Mailbox,
+  MapPin,
+  Palette,
   X,
 } from '@phosphor-icons/react';
 import * as Styled from './styles';
@@ -13,6 +17,7 @@ import { http, WSBaseUrl } from '../../api/server';
 import dayjs from 'dayjs';
 import { objectCategories } from '../../constants/objects-categories';
 import toast from 'react-hot-toast';
+import Dialog from '../Dialog';
 
 export function ReportBox({ suspended = false }) {
   const [isMailListOpen, setIsMailListOpen] = useState(false);
@@ -81,16 +86,16 @@ export function ReportBox({ suspended = false }) {
     };
   }, [updateReportsCache]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (mailListRef.current && !mailListRef.current.contains(event.target)) {
-        setIsMailListOpen(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (mailListRef.current && !mailListRef.current.contains(event.target)) {
+  //       setIsMailListOpen(false);
+  //     }
+  //   };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => document.removeEventListener('mousedown', handleClickOutside);
+  // }, []);
 
   const handleToggleMailList = () => {
     setIsMailListOpen((prev) => !prev);
@@ -164,9 +169,108 @@ function MailListItem({ item, index }) {
           {item.email}
         </span>
       </div>
-      <button>
-        <DotsThree size={24} weight="bold" />
-      </button>
+      <Dialog
+        trigger={
+          <button>
+            <DotsThree size={24} weight="bold" />
+          </button>
+        }
+        content={<ItemModal item={item} />}
+        maxWidth="500px"
+        maxHeight="600px"
+      />
     </Styled.MailListItem>
   );
 }
+
+const ItemModal = ({ item }) => {
+  const obj = objectCategories.find(
+    (category) => category.key === item.category,
+  );
+
+  if (!obj) {
+    return null;
+  }
+
+  return (
+    <Styled.ItemModalContent>
+      <h3>
+        <Binoculars size={24} weight="bold" />
+        Item Reportado
+      </h3>
+
+      {item.imageUrl ? (
+        <Styled.ImageItem src={item.imageUrl} alt="Imagem do item reportado" />
+      ) : (
+        <Styled.NotProvidedImageItem>
+          <span>Imagem não fornecida</span>
+        </Styled.NotProvidedImageItem>
+      )}
+
+      <h4>
+        <obj.icon size={16} weight="bold" />
+        {obj.name}
+      </h4>
+
+      <span className="field">
+        <CalendarBlank size={16} weight="bold" />
+        Reportado em {dayjs(item.createdAt).format('DD/MM/YYYY [às] HH:mm')}
+      </span>
+
+      <span className="field">
+        <EnvelopeSimple size={16} weight="bold" />
+        {item.email}
+      </span>
+
+      <Styled.Separator />
+
+      <Styled.ReportModalItem>
+        <strong>
+          <AddressBook size={16} weight="bold" />
+          Marca
+        </strong>
+        <span>{item.brand}</span>
+      </Styled.ReportModalItem>
+
+      <Styled.Separator />
+
+      <Styled.ReportModalItem>
+        <strong>
+          <Palette size={16} weight="bold" />
+          Cor
+        </strong>
+        <span>{item.color}</span>
+      </Styled.ReportModalItem>
+
+      <Styled.Separator />
+
+      <Styled.ReportModalItem>
+        <strong>
+          <MapPin size={16} weight="bold" />
+          Localização
+        </strong>
+        <span>{item.location}</span>
+      </Styled.ReportModalItem>
+
+      <Styled.Separator />
+
+      <Styled.ReportModalItem>
+        <strong>
+          <CalendarBlank size={16} weight="bold" />
+          Encontrado em
+        </strong>
+        <span>{dayjs(item.lostTime).format('DD/MM/YYYY [às] HH:mm')}</span>
+      </Styled.ReportModalItem>
+
+      <Styled.Separator />
+
+      <Styled.ReportModalItem>
+        <strong>
+          <Article size={16} weight="bold" />
+          Detalhes adicionais
+        </strong>
+        <span>{item.details}</span>
+      </Styled.ReportModalItem>
+    </Styled.ItemModalContent>
+  );
+};

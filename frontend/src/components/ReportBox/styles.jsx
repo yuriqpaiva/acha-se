@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  position: relative;
+`;
 
 export const ReportBoxButton = styled.button`
   position: relative;
@@ -49,7 +51,7 @@ export const MailList = styled.nav`
   z-index: 9999;
 
   position: absolute;
-  top: 64px;
+  top: ${({ suspended }) => (suspended ? '64px' : '40px')};
   right: ${({ suspended }) => (suspended ? '32px' : '6px')};
   width: 300px;
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -179,4 +181,97 @@ export const CloseMailListButton = styled.button`
   color: ${({ theme }) => theme.colors.primary};
   font-size: 24px;
   cursor: pointer;
+`;
+
+export const ItemModalContent = styled.div`
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.primary};
+    padding-bottom: 12px;
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.primary};
+
+    svg {
+      color: ${({ theme }) => theme.colors.primary};
+      margin-right: 6px;
+    }
+  }
+
+  .field {
+    font-size: 1rem;
+    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    svg {
+      color: ${({ theme }) => theme.colors.primary};
+    }
+  }
+`;
+
+export const ReportModalItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  strong {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  span {
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+`;
+
+export const Separator = styled.div`
+  height: 1px;
+  background-color: ${({ theme }) => theme.colors.border};
+  margin: 12px 0;
+`;
+
+export const ImageItem = styled.img`
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid ${({ theme }) => theme.colors.border};
+`;
+
+export const NotProvidedImageItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 150px;
+  padding: 32px;
+  border: 2px dashed ${({ theme }) => theme.colors.border};
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 400;
+
+  span {
+    font-size: 0.875rem;
+  }
 `;
