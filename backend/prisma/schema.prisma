@@ -68,4 +68,5 @@ model ReportLostItem {
   lostTime  DateTime
   imageKey  String?
   createdAt DateTime @default(now())
+  read      Boolean  @default(false)
 }

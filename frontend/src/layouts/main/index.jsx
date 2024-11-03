@@ -12,6 +12,7 @@ import {
   XCircle,
 } from '@phosphor-icons/react';
 import { useWindowDimensions } from '../../contexts/window';
+import { ReportBox } from '../../components/ReportBox';
 
 const navItems = [
   {
@@ -99,13 +100,18 @@ export function MainLayout() {
 
       <Styled.Content isNavbarOpen={isNavbarOpen}>
         <Styled.Header>
-          <Styled.OpenNavButton onClick={handleToggleNavbar}>
-            <List size={28} weight="bold" />
-          </Styled.OpenNavButton>
           <Styled.DivImagemLogo src={logo} alt="Logo" />
+
+          <div className="left-side">
+            <Styled.OpenNavButton onClick={handleToggleNavbar}>
+              <List size={28} weight="bold" />
+            </Styled.OpenNavButton>
+            <ReportBox />
+          </div>
         </Styled.Header>
         <Outlet />
       </Styled.Content>
+      <ReportBox suspended />
     </Styled.Container>
   );
 }

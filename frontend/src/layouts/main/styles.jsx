@@ -54,7 +54,9 @@ export const Nav = styled.div`
 
   @media (max-width: 920px) {
     position: fixed;
-    transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
+    right: 0;
+    width: 70%;
+    transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
     transition: transform 0.225s ease-in-out;
   }
 `;
@@ -343,6 +345,17 @@ export const Header = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 64px;
+
+  .left-side {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    img {
+      height: 50px;
+      width: auto;
+    }
+  }
 
   @media (max-width: 920px) {
     display: flex;
