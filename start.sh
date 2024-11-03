@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# Stop and remove all containers defined in the docker-compose file
-docker compose down
+# Check if the --cache flag is set
+if [[ "$*" != *"--cache"* ]]; then
+    # Stop and remove all containers defined in the docker-compose file
+    docker compose down
+fi
 
 # Check if the --no-cache flag is set
 if [[ "$*" == *"--no-cache"* ]]; then
