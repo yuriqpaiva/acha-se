@@ -117,7 +117,11 @@ export function ReportBox({ suspended = false }) {
         {!isLoading && <Styled.Notification>{count}</Styled.Notification>}
       </Styled.ReportBoxButton>
 
-      <Styled.MailList ref={mailListRef} isOpen={isMailListOpen}>
+      <Styled.MailList
+        ref={mailListRef}
+        isOpen={isMailListOpen}
+        suspended={suspended}
+      >
         <Styled.CloseMailListButton onClick={() => setIsMailListOpen(false)}>
           <X size={24} weight="bold" />
         </Styled.CloseMailListButton>

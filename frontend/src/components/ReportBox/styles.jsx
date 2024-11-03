@@ -50,7 +50,7 @@ export const MailList = styled.nav`
 
   position: absolute;
   top: 64px;
-  right: 32px;
+  right: ${({ suspended }) => (suspended ? '32px' : '6px')};
   width: 300px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 10px;
@@ -82,11 +82,10 @@ export const MailListInner = styled.div`
     display: flex;
     flex-direction: column;
     list-style: none;
-    overflow-y: auto; // Enable vertical scrolling
+    overflow-y: auto;
     max-height: 320px;
     min-height: 320px;
 
-    /* Customize scrollbar */
     &::-webkit-scrollbar {
       width: 8px;
     }
