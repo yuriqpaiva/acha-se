@@ -3,7 +3,7 @@ import axios from 'axios';
 export const http = axios.create({ baseURL: import.meta.env.VITE_APP_API_URL });
 
 export const WSBaseUrl =
-  'ws://' +
+  (import.meta.env.VITE_APP_API_URL.startsWith('https') ? 'wss://' : 'ws://') +
   import.meta.env.VITE_APP_API_URL.replace(/^https?:\/\//, '').replace(
     /\/$/,
     '',
