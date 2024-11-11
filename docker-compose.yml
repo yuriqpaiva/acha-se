@@ -36,6 +36,8 @@ services:
       - CLOUDFLARE_ACCESS_KEY_ID=7236073b8b8a95072fc23eea89545c15
       - CLOUDFLARE_ENDPOINT=https://dfc8a79c3bb1ff6e8eca4c5613d6af32.r2.cloudflarestorage.com/
       - CLOUDFLARE_SECRET_ACCESS_KEY=ab10a3f7efb2de770b212b0536063c867cc1115bfbd41d38cbc7d23f2b93dba7
+      - EMAIL_SENDER=${EMAIL_SENDER}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
     depends_on:
       - db
 

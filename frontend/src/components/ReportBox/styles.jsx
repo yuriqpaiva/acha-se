@@ -275,3 +275,31 @@ export const NotProvidedImageItem = styled.div`
     font-size: 0.875rem;
   }
 `;
+
+export const ModalButtons = styled.div`
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+`;
+
+export const ModalButton = styled.button`
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+export const NotifyUserButton = styled(ModalButton)`
+  background: ${({ theme }) => theme.colors.success}26;
+  color: #166534;
+`;
+
+export const DeleteReportButton = styled(ModalButton)`
+  background: ${({ theme }) => theme.colors.danger}26;
+  color: #c53030;
+`;

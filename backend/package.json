@@ -22,9 +22,11 @@
     "@fastify/multipart": "^8.3.0",
     "@fastify/websocket": "9.0.0",
     "@prisma/client": "^5.19.1",
+    "@types/nodemailer": "^6.4.16",
     "bcryptjs": "^2.4.3",
     "fastify": "^4.27.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.16",
     "typescript": "^5.4.5",
     "zod": "^3.23.8"
   },

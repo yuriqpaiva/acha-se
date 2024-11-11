@@ -19,7 +19,11 @@ const App = () => (
         <GlobalStyle />
       </AuthProvider>
     </ThemeProvider>
-    <Toaster />
+    <Toaster
+      containerStyle={{
+        zIndex: 999999999999999,
+      }}
+    />
   </QueryClientProvider>
 );
 

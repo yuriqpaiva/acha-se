@@ -8,11 +8,12 @@ import {
   Mailbox,
   MapPin,
   Palette,
+  Trash,
   X,
 } from '@phosphor-icons/react';
 import * as Styled from './styles';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { http, WSBaseUrl } from '../../api/server';
 import dayjs from 'dayjs';
 import { objectCategories } from '../../constants/objects-categories';
@@ -192,6 +193,19 @@ const ItemModal = ({ item }) => {
     return null;
   }
 
+  const notifyMutation = useMutation({
+    mutationFn: async () => {
+      await http.post(`/report-lost-item/${item.id}/notify`);
+    },
+    onSuccess: () => {
+      toast.success('Usuário notificado com sucesso');
+    },
+    onError: (error) => {
+      console.error('Error notifying user:', error);
+      toast.error('Erro ao notificar o usuário');
+    },
+  });
+
   return (
     <Styled.ItemModalContent>
       <h3>
@@ -221,6 +235,17 @@ const ItemModal = ({ item }) => {
         <EnvelopeSimple size={16} weight="bold" />
         {item.email}
       </span>
+
+      <Styled.ModalButtons>
+        <Styled.NotifyUserButton onClick={() => notifyMutation.mutate()}>
+          <EnvelopeSimple size={16} weight="bold" />
+          Notificar item perdido
+        </Styled.NotifyUserButton>
+        <Styled.DeleteReportButton>
+          <Trash size={16} weight="bold" />
+          Descartar esta notificação
+        </Styled.DeleteReportButton>
+      </Styled.ModalButtons>
 
       <Styled.Separator />
 

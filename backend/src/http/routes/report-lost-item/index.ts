@@ -4,6 +4,7 @@ import { SocketStream } from '@fastify/websocket';
 import { authMiddleware } from '../../../middlewares/auth';
 import { handleFindAllReportsLostItem } from './find-all';
 import { verify } from 'jsonwebtoken';
+import { handleNotifyLostItem } from './notify';
 
 const connections = new Set<SocketStream>();
 
@@ -19,6 +20,8 @@ export async function reportLostItemHandler(app: FastifyInstance) {
   app.post('/', (req, res) =>
     handleCreateReportLostItem(req, res, connections),
   );
+
+  app.post('/:reportId/notify', (req, res) => handleNotifyLostItem(req, res));
 
   app.get<{
     Querystring: { token: string };
