@@ -20,8 +20,15 @@
     "sourceMap": true,                                   /* Create source map files for emitted JavaScript files. */
     "declaration": false,                                /* Disable declaration file generation for simplicity. */
     "removeComments": true,                              /* Disable emitting comments. */
-    "isolatedModules": true                              /* Ensure each file can be safely transpiled without relying on other files. */
+    "isolatedModules": true,                             /* Ensure each file can be safely transpiled without relying on other files. */
+    "types": ["node", "jest"]
   },
-  "include": ["./src/**/*.ts"],                          /* Include all TypeScript files in the src directory. */
-  "exclude": ["node_modules", "dist"]                    /* Exclude node_modules and the output directory. */
+  "include": [
+    "./src/**/*.ts",
+    "jest.config.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

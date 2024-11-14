@@ -7,7 +7,7 @@
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": "./backend/tsconfig.json"
+    "project": ["./backend/tsconfig.json", "./tsconfig.json"]
   },
   "extends": [
     "eslint:recommended",
@@ -38,7 +38,10 @@
         "checksVoidReturn": false
       }
     ],
-    "@typescript-eslint/require-await": "off"
+    "@typescript-eslint/require-await": "off",
+    "node/no-unpublished-import": ["error", {
+      "allowModules": ["jest"]
+    }]
   },
   "settings": {
     "import/resolver": {
@@ -47,7 +50,7 @@
       },
       "typescript": {
         "alwaysTryTypes": true,
-        "project": "./backend/tsconfig.json"
+        "project": ["./backend/tsconfig.json", "./tsconfig.json"]
       }
     }
   }
