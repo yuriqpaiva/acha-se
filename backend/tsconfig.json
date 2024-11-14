@@ -21,7 +21,14 @@
     "declaration": false,                                /* Disable declaration file generation for simplicity. */
     "removeComments": true,                              /* Disable emitting comments. */
     "isolatedModules": true,                             /* Ensure each file can be safely transpiled without relying on other files. */
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@use-cases/*": ["./src/use-cases/*"],
+      "@repositories/*": ["./src/repositories/*"],
+      "@providers/*": ["./src/providers/*"]
+    }
   },
   "include": [
     "./src/**/*.ts",

@@ -1,6 +1,6 @@
-import { CreateObjectUseCase } from './create-object-use-case';
-import { ObjectsInMemoryRepository } from '../../repositories/in-memory/objects-in-memory-repository';
-import { InMemoryImageUploadProvider } from '../../providers/in-memory/in-memory-image-upload';
+import { CreateObjectUseCase } from '@use-cases/objects/create-object-use-case';
+import { ObjectsInMemoryRepository } from '@repositories/in-memory/objects-in-memory-repository';
+import { InMemoryImageUploadProvider } from '@providers/in-memory/in-memory-image-upload';
 
 describe('Create Object Use Case', () => {
   it('should create an object', async () => {

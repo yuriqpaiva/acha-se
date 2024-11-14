@@ -45,9 +45,6 @@
   },
   "settings": {
     "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
-      },
       "typescript": {
         "alwaysTryTypes": true,
         "project": ["./backend/tsconfig.json", "./tsconfig.json"]
