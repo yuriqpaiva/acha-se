@@ -31,6 +31,8 @@ server.register(authHandler, { prefix: '/auth' });
 server.register(userHandler, { prefix: '/user' });
 server.register(reportLostItemHandler, { prefix: '/report-lost-item' });
 
+// testing CI
+
 server
   .listen({ port, host })
   .then((port) => {
