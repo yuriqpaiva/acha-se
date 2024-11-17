@@ -15,7 +15,6 @@ describe('Create Devolution Use Case', () => {
 
     const devolution = await sut.execute(devolutionData);
 
-    // Test devolution creation
     expect(devolution.id).toBeDefined();
     expect(devolution.name).toBe('John Doe');
     expect(devolution.rg).toBe('123456789');
@@ -23,11 +22,9 @@ describe('Create Devolution Use Case', () => {
     expect(devolution.objectId).toBe('fake-object-id');
     expect(devolution.date).toBeDefined();
 
-    // Test current date
     expect(devolution.date).toBeInstanceOf(Date);
     expect(devolution.date.getTime()).toBeCloseTo(new Date().getTime(), -2);
 
-    // Test persistence
     expect(devolutionRepository.devolutions).toHaveLength(1);
     expect(devolutionRepository.devolutions[0]).toEqual(devolution);
   });

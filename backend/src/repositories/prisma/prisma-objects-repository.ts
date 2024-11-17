@@ -1,4 +1,4 @@
-import { type Objects } from '@prisma/client';
+import { Category, type Objects } from '@prisma/client';
 import { prisma } from '../../lib/prisma';
 import { ObjectsRepository, ObjectWithoutId } from '../objects-repository';
 
@@ -24,6 +24,18 @@ export class PrismaObjectsRepository implements ObjectsRepository {
 
   async findMany(): Promise<Objects[]> {
     const objects = await prisma.objects.findMany();
+    return objects;
+  }
+
+  async findManyByCategory(category?: Category): Promise<Objects[]> {
+    const objects = await prisma.objects.findMany({
+      where: category
+        ? {
+            category,
+          }
+        : undefined,
+    });
+
     return objects;
   }
 

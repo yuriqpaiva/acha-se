@@ -1,4 +1,4 @@
-import { type Objects } from '@prisma/client';
+import { type Objects, Category } from '@prisma/client';
 import { ObjectsRepository, ObjectWithoutId } from '../objects-repository';
 
 export class ObjectsInMemoryRepository implements ObjectsRepository {
@@ -31,6 +31,11 @@ export class ObjectsInMemoryRepository implements ObjectsRepository {
 
   async findMany(): Promise<Objects[]> {
     return this.objects;
+  }
+
+  async findManyByCategory(category?: Category): Promise<Objects[]> {
+    if (!category) return this.objects;
+    return this.objects.filter((object) => object.category === category);
   }
 
   async findById(id: string): Promise<Objects | null> {
