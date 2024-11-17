@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { prisma } from '../../../lib/prisma';
 import { z } from 'zod';
+import { CreateDevolutionUseCase } from '@/use-cases/objects/create-devolution-use-case';
+import { PrismaDevolutionRepository } from '@/repositories/prisma/prisma-devolution-repository';
 
 export async function handleDevolution(req: FastifyRequest, res: FastifyReply) {
   const objectBody = z.object({
@@ -10,16 +11,13 @@ export async function handleDevolution(req: FastifyRequest, res: FastifyReply) {
     objectId: z.string(),
   });
 
-  const { cpf, name, rg, objectId } = objectBody.parse(req.body);
+  const data = objectBody.parse(req.body);
 
-  const devolution = await prisma.devolution.create({
-    data: {
-      cpf,
-      name,
-      rg,
-      objectId,
-    },
-  });
+  const createDevolutionUseCase = new CreateDevolutionUseCase(
+    new PrismaDevolutionRepository(),
+  );
+
+  const devolution = await createDevolutionUseCase.execute(data);
 
   return res.send(devolution).status(201);
 }
