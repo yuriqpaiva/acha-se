@@ -1,19 +1,15 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { Category } from '@prisma/client';
-import { Upload } from '@aws-sdk/lib-storage';
-import { r2 } from '../../../lib/cloudflare';
-import { prisma } from '../../../lib/prisma';
-import { randomUUID } from 'crypto';
+import { R2ImageUploadProvider } from '../../../providers/implementations/r2-image-upload';
+import { UpdateObjectUseCase } from '../../../use-cases/objects/update-object-use-case';
+import { PrismaObjectsRepository } from '../../../repositories/prisma/prisma-objects-repository';
 
 export async function handleUpdateObject(
   req: FastifyRequest,
   res: FastifyReply,
 ) {
   const { id } = req.params as { id: string };
-  const parts = req.parts();
-  let hasFile = false;
-
   const objectBody = z.object({
     name: z.string(),
     color: z.string(),
@@ -24,61 +20,49 @@ export async function handleUpdateObject(
     category: z.nativeEnum(Category),
   });
 
-  const body: Record<string, unknown> = {};
-  let imageKey = '';
+  try {
+    const parts = req.parts();
+    const formData: Record<string, string> = {};
+    let imageFile: Buffer | null = null;
+    let imageFilename: string = '';
 
-  for await (const part of parts) {
-    if (part.type === 'file') {
-      hasFile = true;
-      const file = part;
-      const uploadImageToS3 = new Upload({
-        client: r2,
-        leavePartsOnError: false,
-        params: {
-          Bucket: process.env.R2_BUCKET,
-          Key: randomUUID().concat(file?.filename),
-          Body: file?.file,
-          ContentType: 'image/png',
-        },
-      });
-
-      const uploadedImage = await uploadImageToS3.done();
-      imageKey = uploadedImage.Key as string;
-    } else {
-      body[part.fieldname] = part.value;
+    for await (const part of parts) {
+      if (part.type === 'file') {
+        const buffer = await part.toBuffer();
+        imageFile = buffer;
+        imageFilename = part.filename;
+      } else {
+        formData[part.fieldname] = part.value as string;
+      }
     }
-  }
 
-  if (!hasFile && !body['imageKey']) {
-    return res.status(400).send({
-      message: 'Image missing',
+    const data = objectBody.parse(formData);
+
+    const updateObjectUseCase = new UpdateObjectUseCase(
+      new PrismaObjectsRepository(),
+      new R2ImageUploadProvider(),
+    );
+
+    const updatedObject = await updateObjectUseCase.execute(id, {
+      ...data,
+      devolutionId: null,
+      image:
+        imageFile && imageFilename
+          ? {
+              file: imageFile,
+              filename: imageFilename,
+            }
+          : undefined,
     });
+
+    return res.send(updatedObject);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res
+        .status(400)
+        .send({ message: 'Validation error', errors: error.issues });
+    }
+
+    return res.status(500).send({ message: 'Internal server error' });
   }
-
-  const { brand, category, color, date, local, name, value } =
-    objectBody.parse(body);
-
-  const existingObject = await prisma.objects.findUnique({ where: { id } });
-
-  if (!existingObject) {
-    return res.status(404).send({
-      message: 'Object not found',
-    });
-  }
-
-  const updatedObject = await prisma.objects.update({
-    where: { id },
-    data: {
-      brand,
-      category,
-      color,
-      date,
-      local,
-      name,
-      value,
-      imageKey: imageKey || existingObject.imageKey, // Keep existing image if no new image provided
-    },
-  });
-
-  return res.send(updatedObject);
 }

@@ -1,6 +1,6 @@
 import { type Objects } from '@prisma/client';
 import { prisma } from '../../lib/prisma';
-import { ObjectsRepository } from '../objects-repository';
+import { ObjectsRepository, ObjectWithoutId } from '../objects-repository';
 
 export class PrismaObjectsRepository implements ObjectsRepository {
   async create(object: Objects): Promise<Objects> {
@@ -9,6 +9,17 @@ export class PrismaObjectsRepository implements ObjectsRepository {
     });
 
     return createdObject;
+  }
+
+  async update(objectId: string, object: ObjectWithoutId): Promise<Objects> {
+    const updatedObject = await prisma.objects.update({
+      where: {
+        id: objectId,
+      },
+      data: object,
+    });
+
+    return updatedObject;
   }
 
   async findMany(): Promise<Objects[]> {
