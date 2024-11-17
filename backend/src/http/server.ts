@@ -1,4 +1,5 @@
-import fastify from 'fastify';
+import 'module-alias/register';
+import Fastify from 'fastify';
 import multipart from '@fastify/multipart';
 import cors from '@fastify/cors';
 import { objectsHandler } from './routes/objects';
@@ -8,7 +9,7 @@ import { userHandler } from './routes/user';
 import { reportLostItemHandler } from './routes/report-lost-item';
 import websocket from '@fastify/websocket';
 
-const server = fastify();
+const server = Fastify();
 
 const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
 const host = process.env.NODE_ENV === 'development' ? 'localhost' : '0.0.0.0';
