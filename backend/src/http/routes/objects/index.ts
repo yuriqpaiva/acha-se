@@ -3,7 +3,7 @@ import { handleCreateObject } from './create';
 import { authMiddleware } from '../../../middlewares/auth';
 import { handleFindObjectsByCategory } from './findByCategory';
 import { handleDevolution } from './devolution';
-import { handleFindObjectById } from './handleFindObjectById';
+import { handleFindObjectById } from './findById';
 import { handleUpdateObject } from './update';
 
 export async function objectsHandler(app: FastifyInstance) {

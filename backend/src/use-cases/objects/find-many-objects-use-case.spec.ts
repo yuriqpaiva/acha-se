@@ -40,8 +40,6 @@ describe('Find Many Objects Use Case', () => {
 
     const objects = await sut.execute();
 
-    console.log('objects', objects);
-
     expect(objects).toHaveLength(2);
     expect(objects[0]).toEqual(
       expect.objectContaining({

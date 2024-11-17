@@ -16,4 +16,8 @@ export class ObjectsInMemoryRepository implements ObjectsRepository {
   async findMany(): Promise<Objects[]> {
     return this.objects;
   }
+
+  async findById(id: string): Promise<Objects | null> {
+    return this.objects.find((object) => object.id === id) || null;
+  }
 }

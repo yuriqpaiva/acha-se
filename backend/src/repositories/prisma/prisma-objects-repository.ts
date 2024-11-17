@@ -15,4 +15,14 @@ export class PrismaObjectsRepository implements ObjectsRepository {
     const objects = await prisma.objects.findMany();
     return objects;
   }
+
+  async findById(id: string): Promise<Objects | null> {
+    const object = await prisma.objects.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return object;
+  }
 }
