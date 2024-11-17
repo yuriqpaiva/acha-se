@@ -6,4 +6,5 @@ export interface UploadInput {
 
 export interface ImageUploadProvider {
   upload(data: UploadInput): Promise<string>;
+  getImageUrl(imageKey: string): Promise<string>;
 }

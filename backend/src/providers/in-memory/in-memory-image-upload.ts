@@ -8,4 +8,8 @@ export class InMemoryImageUploadProvider implements ImageUploadProvider {
     this.uploads.push(data);
     return randomUUID().concat(data.filename);
   }
+
+  async getImageUrl(imageKey: string): Promise<string> {
+    return `http://fake-url.com/${imageKey}`;
+  }
 }

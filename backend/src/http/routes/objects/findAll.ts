@@ -1,34 +1,19 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { prisma } from '../../../lib/prisma';
-import { r2 } from '../../../lib/cloudflare';
-import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { FindManyObjectsUseCase } from '../../../use-cases/objects/find-many-objects-use-case';
+import { PrismaObjectsRepository } from '../../../repositories/prisma/prisma-objects-repository';
+import { R2ImageUploadProvider } from '../../../providers/implementations/r2-image-upload';
 
 export async function handleFindAllObjects(
-  req: FastifyRequest,
+  _: FastifyRequest,
   res: FastifyReply,
 ) {
-  const objects = await prisma.objects.findMany();
-  const returnArr = [];
-  for await (const obj of objects) {
-    const command = new GetObjectCommand({
-      Bucket: process.env.R2_BUCKET,
-      Key: obj.imageKey!,
-    });
-    const url = await getSignedUrl(r2, command, { expiresIn: 15 * 60 });
+  const objectsRepository = new PrismaObjectsRepository();
+  const imageUploadProvider = new R2ImageUploadProvider();
+  const findManyObjectsUseCase = new FindManyObjectsUseCase(
+    objectsRepository,
+    imageUploadProvider,
+  );
 
-    returnArr.push({
-      id: obj.id,
-      imageUrl: url,
-      brand: obj.brand,
-      category: obj.category,
-      color: obj.color,
-      date: obj.date,
-      local: obj.local,
-      name: obj.name,
-      value: obj.value,
-    });
-  }
-
-  return res.send(returnArr);
+  const objects = await findManyObjectsUseCase.execute();
+  return res.send(objects);
 }
