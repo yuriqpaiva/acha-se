@@ -9,7 +9,8 @@
     "build": "tsc -p .",
     "start": "node dist/http/server.js",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
